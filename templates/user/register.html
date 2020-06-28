@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+{{super()}}
+
+<style>
+    #div-register {
+        padding-top: 180px;
+        text-align: center;
+        width: 100%;
+    }
+
+    #div-register form {
+        width: 30%;
+        margin: 0 auto;
+    }
+
+
+
+</style>
+{% endblock %}
+
+
+{% block newcontent %}
+<div>
+    <div id="div-register">
+        <form class="form-horizontal">
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-3" for="inputusername">UserName</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputusername" name="username"
+                           placeholder="redhoe" aria-describedby="inputSuccess3Status">
+                </div>
+            </div>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-3" for="inputphone">Phone</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="inputphone" name="phone"
+                           placeholder="18173856661" aria-describedby="inputSuccess3Status">
+                </div>
+            </div>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-3" for="inputpassword">Password</label>
+                <div class="col-sm-9">
+
+                    <input type="password" class="form-control" id="inputpassword" name="password"
+                           placeholder="************" aria-describedby="inputGroupSuccess2Status">
+
+                </div>
+            </div>
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-3" for="reinputpassword">RePassword</label>
+                <div class="col-sm-9">
+
+                    <input type="password" class="form-control" id="reinputpassword" name="password"
+                           placeholder="************" aria-describedby="inputGroupSuccess2Status">
+
+                </div>
+            </div>
+            <div class="form-group has-success has-feedback">
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-9" class="input-group">
+                    <button type="submit" class="btn btn-default">ReSet</button>
+                    <button type="submit" class="btn btn-default">Register</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Loan{% endblock %}
+
+{% block styles %}
+{{super()}}
+
+<style>
+    #loan-search-div {
+        padding-top: 10px;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    #loan-div {
+        padding-top: 10px;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block newcontent %}
+<div id="loan-search-div">
+    <form class="form-inline">
+        <div class="row">
+            <div class="col-xs-2 form-group ">
+                <label for="inputusername" class="control-label">UserName</label>
+                <input type="text" class="form-control" id="inputusername" placeholder="inputusername" >
+            </div>
+
+
+            <div class="col-xs-2">
+                <input type="text" class="form-control" placeholder=".col-xs-3">
+            </div>
+            <div class="col-xs-2">
+                <input type="text" class="form-control" placeholder=".col-xs-4">
+            </div>
+            <div class="col-xs-1 ">
+                <input class="btn btn-default" type="submit" value="Submit">
+            </div>
+        </div>
+    </form>
+</div>
+<div id="loan-div">
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th>Index</th>
+            <th>BankName</th>
+            <th>LoanName</th>
+            <th>Amount</th>
+            <th>Balance</th>
+            <th>AmountRates</th>
+            <th>BalanceRates</th>
+            <th>Rate</th>
+            <th>BeginTime</th>
+            <th>EndTime</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+
+        <tr>
+            <th>1</th>
+            <td>UBS BANK</td>
+            <td>Xiao Mi</td>
+            <td>50000</td>
+            <td>32000</td>
+            <td>2500</td>
+            <td>2000</td>
+            <td>0.05</td>
+            <td>2020-01-20</td>
+            <td>2022-12-20</td>
+            <td>view | del</td>
+        </tr>
+
+    </table>
+</div>
+{% endblock %}

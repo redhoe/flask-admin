@@ -1,1 +1,46 @@
-login.html
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block styles %}
+{{super()}}
+
+<style>
+    #div1 {
+        padding-top: 280px;
+        text-align: center;
+        width: 100%;
+    }
+
+    #div2 {
+        text-align: center;
+    }
+
+    #img_log {
+        height: 120px;
+        width: 120px;
+    }
+
+</style>
+{% endblock %}
+
+
+{% block newcontent %}
+<div>
+    <div id="div1">
+        <img src="{{ url_for('static',filename='images/loan.png') }}" id="img_log"  class="img-circle">
+    </div>
+    <div id="div2">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="inputphone">Name/Phone</label>
+                <input type="text" class="form-control" id="inputphone" placeholder="redhoe">
+            </div>
+            <div class="form-group">
+                <label for="inputpassword">Password</label>
+                <input type="password" class="form-control" id="inputpassword" placeholder="******">
+            </div>
+            <button type="submit" class="btn btn-default">Login...</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

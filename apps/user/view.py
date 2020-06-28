@@ -7,6 +7,15 @@ user_bp = Blueprint('user', __name__)  # 创建蓝图
 
 
 @user_bp.route('/')
+def base():
+    return render_template('base.html')
+
+
+@user_bp.route('/login', endpoint='login')
 def user_login():
-    users = User.query.all()
-    return render_template('user/login.html', users=users)
+    return render_template('user/login.html')
+
+
+@user_bp.route('/register', endpoint='register')
+def user_register():
+    return render_template('user/register.html')

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Loan{% endblock %}
+
+{% block styles %}
+{{super()}}
+
+<style>
+    #loan-div {
+        padding-top: 10px;
+        text-align: center;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block newcontent %}
+<div id="loan-div">
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Index</th>
+                <th>LoanName</th>
+                <th>Amount</th>
+                <th>EndTime</th>
+            </tr>
+        </thead>
+
+        <tr>
+            <th>1</th>
+            <td>LoanName</td>
+            <td>Amount</td>
+            <td>EndTime</td>
+        </tr>
+
+        <tr>
+            <th>2</th>
+            <td>LoanName</td>
+            <td>Amount</td>
+            <td>EndTime</td>
+        </tr>
+        <tr>
+            <th>3</th>
+            <td>LoanName</td>
+            <td>Amount</td>
+            <td>EndTime</td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

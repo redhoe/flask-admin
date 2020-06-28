@@ -1,13 +1,56 @@
 {% extends "bootstrap/base.html" %}
 {% block title %}Loan Admin{% endblock %}
+{% block head %}
+{{super()}}
+<link rel="icon" type="image/png" href="{{ url_for('static',filename='images/loan.png') }}">
+{% endblock %}
 
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-    <!-- ... -->
-</div>
+
+{% block styles %}
+{{super()}}
+
+<style>
+    .div_nav {
+        width: 100%;
+        text-align: left;
+        padding-left: 20%;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+
+    #div_newcontent {
+        width: 100%;
+        height: 800px;
+        margin: 0 auto;
+        background-color: aliceblue;
+    }
+
+</style>
 {% endblock %}
 
 {% block content %}
-<img src="{{ url_for('static',filename='images/headeLogo.png') }}">
-<h1>flask login</h1>
+<div>
+    <div class="div_nav">
+        <ul class="nav nav-pills">
+            <li role="presentation" class="active"><a href="/">Home</a></li>
+            <li role="presentation"><a href="{{ url_for('user.login') }}">Login</a></li>
+            <li role="presentation"><a href="{{ url_for('user.register') }}">Register</a></li>
+            <li role="presentation"><a href="{{ url_for('loan.loan') }}">Loan</a></li>
+            <li role="presentation"><a href="{{ url_for('loan.capital') }}">Capital</a></li>
+            <li role="presentation"><a href="{{ url_for('loan.trend') }}">Trend</a></li>
+        </ul>
+    </div>
+
+    <div id="div_newcontent">
+    {% block newcontent %}
+
+    {% endblock %}
+    </div>
+
+    {%- block footer %}
+    <div class="div_nav">
+        <footer>&copy; 2020 Red Hoe, Inc.</footer>
+    </div>
+    {%- endblock footer %}
+</div>
 {% endblock %}
