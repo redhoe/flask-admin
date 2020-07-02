@@ -43,3 +43,21 @@ class Capital(db.Model):
     def __str__(self):
         return self.__tablename__
 
+
+# 图表数据
+class Trend(db.Model):
+    __tablename__ = 'trend'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    loan_name = db.Column(db.String(30))  # comment='款项名'
+    amount = db.Column(db.String(30))  # , comment='总金额'
+    balance = db.Column(db.String(30))  # 剩余金额
+    less_amount = db.Column(db.String(30))  # 还款金额
+    amount_rates = db.Column(db.String(30))  # 总利息
+    less_rates = db.Column(db.String(30), comment='还款利息')  # 还款利息
+    balance_rates = db.Column(db.String(30))  # 利息余额
+    month = db.Column(db.String(50))  # 实际执行时间
+    create_time = db.Column(db.DateTime, default=datetime.now)
+
+    def __str__(self):
+        return self.__tablename__
+

@@ -10,7 +10,7 @@ bootstrap = Bootstrap()
 
 def create_app():
     app = Flask(__name__, template_folder='../templates', static_folder='../static')
-    app.config.from_object(settings.DeploymentConfigHome)  # 加载settings配置
+    app.config.from_object(settings.DeploymentConfig)  # 加载settings配置
     app.register_blueprint(user_bp)  # 将蓝图对象user_bp 绑定到app上 print(app.url_map)
     app.register_blueprint(loan_bp)  # 将蓝图对象user_bp 绑定到app上 print(app.url_map)
     db.init_app(app)  # 将db对象与app进行关联

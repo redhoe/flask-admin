@@ -1,6 +1,97 @@
 {% extends "base.html" %}
 {% block title %}Loan{% endblock %}
 
+
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{ url_for('static',filename='js/echarts-min.js') }}"></script>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    option = {
+        title: {
+            text: 'Loan'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#6a7985'
+                }
+            }
+        },
+        legend: {
+            data: ['Balance', 'Rates']
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+
+        xAxis: {
+            type: 'category',
+            data: []
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            {
+                name: "Rates",
+                data: [],
+                type: 'line',
+                smooth: true
+            },
+            {
+                name: "Balance",
+                data: [],
+                type: 'line',
+                smooth: true
+            }
+        ]
+    };
+
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    // 异步加载数据
+    myChart.showLoading(); // 显示加载动画/loan/get_trend
+    $.get("{{ url_for('loan.get_trend') }}").done(function (data) {
+        myChart.hideLoading(); // 隐藏加载动画
+
+        // 填入数据
+        myChart.setOption({
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            xAxis: {
+                data: data.date_list
+            },
+            series: [{
+                name: 'Balance', // 根据名字对应到相应的系列
+                data: data.balance_list.map(parseFloat) // 转化为数字（注意map）
+            }, {
+                name: 'Rates',
+                data: data.balance_rates_list.map(parseFloat)
+            }]
+        });
+    });
+
+
+</script>
+{% endblock %}
+
+
 {% block styles %}
 {{super()}}
 
@@ -20,33 +111,25 @@
 <div id="loan-div">
     <table class="table table-hover table-bordered">
         <thead>
-            <tr>
-                <th>Index</th>
-                <th>LoanName</th>
-                <th>Amount</th>
-                <th>EndTime</th>
-            </tr>
+        <tr>
+            <th>Index</th>
+            <th>LoanName</th>
+            <th>balance</th>
+            <th>balance_rates</th>
+            <th>Date</th>
+        </tr>
         </thead>
+        {% for trend in trends %}
+        <tr>
+            <th>{{ loop.index }}</th>
+            <td>{{ trend.loan_name }}</td>
+            <td>{{ trend.balance }}</td>
+            <td>{{ trend.balance_rates }}</td>
+            <td>{{ trend.month }}</td>
+        </tr>
+        {% endfor %}
 
-        <tr>
-            <th>1</th>
-            <td>LoanName</td>
-            <td>Amount</td>
-            <td>EndTime</td>
-        </tr>
-
-        <tr>
-            <th>2</th>
-            <td>LoanName</td>
-            <td>Amount</td>
-            <td>EndTime</td>
-        </tr>
-        <tr>
-            <th>3</th>
-            <td>LoanName</td>
-            <td>Amount</td>
-            <td>EndTime</td>
-        </tr>
     </table>
 </div>
+<div id="main" style="width: 600px;height:400px; margin: 0 auto;"></div>
 {% endblock %}
