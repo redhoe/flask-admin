@@ -6,7 +6,7 @@
 
 <style>
     #div1 {
-        padding-top: 280px;
+        padding-top: 180px;
         text-align: center;
         width: 100%;
     }
@@ -30,14 +30,14 @@
         <img src="{{ url_for('static',filename='images/loan.png') }}" id="img_log"  class="img-circle">
     </div>
     <div id="div2">
-        <form class="form-inline">
+        <form class="form-inline" action="{{ url_for('user.login') }}" method="post">
             <div class="form-group">
                 <label for="inputphone">Name/Phone</label>
-                <input type="text" class="form-control" id="inputphone" placeholder="redhoe">
+                <input type="text" class="form-control" id="inputphone" placeholder="redhoe" name="username">
             </div>
             <div class="form-group">
                 <label for="inputpassword">Password</label>
-                <input type="password" class="form-control" id="inputpassword" placeholder="******">
+                <input type="password" class="form-control" id="inputpassword" name="password" placeholder="******">
             </div>
             <button type="submit" class="btn btn-default">Login...</button>
         </form>

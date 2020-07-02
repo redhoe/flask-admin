@@ -25,7 +25,7 @@
 {% block newcontent %}
 <div>
     <div id="div-register">
-        <form class="form-horizontal">
+        <form class="form-horizontal" action="{{ url_for('user.register') }}" method="post">
             <div class="form-group has-success has-feedback">
                 <label class="control-label col-sm-3" for="inputusername">UserName</label>
                 <div class="col-sm-9">
@@ -55,7 +55,7 @@
                 <label class="control-label col-sm-3" for="reinputpassword">RePassword</label>
                 <div class="col-sm-9">
 
-                    <input type="password" class="form-control" id="reinputpassword" name="password"
+                    <input type="password" class="form-control" id="reinputpassword" name="repassword"
                            placeholder="************" aria-describedby="inputGroupSuccess2Status">
 
                 </div>
@@ -64,7 +64,7 @@
                 <div class="col-sm-3"></div>
 
                 <div class="col-sm-9" class="input-group">
-                    <button type="submit" class="btn btn-default">ReSet</button>
+                    <button type="reset" class="btn btn-default">ReSet</button>
                     <button type="submit" class="btn btn-default">Register</button>
                 </div>
             </div>

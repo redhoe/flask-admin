@@ -2,79 +2,87 @@
 {% block title %}Loan{% endblock %}
 
 {% block styles %}
-{{super()}}
+    {{ super() }}
 
-<style>
-    #loan-search-div {
-        padding-top: 10px;
-        width: 60%;
-        margin: 0 auto;
-    }
+    <style>
+        #loan-search-div {
+            padding-top: 10px;
+            width: 80%;
+            margin: 0 auto;
+            padding-left: 50%;
 
-    #loan-div {
-        padding-top: 10px;
-        width: 60%;
-        margin: 0 auto;
-    }
+        }
+
+        #loan-div {
+            padding-top: 10px;
+            width: 80%;
+            margin: 0 auto;
+        }
 
 
-</style>
+    </style>
 {% endblock %}
 
 {% block newcontent %}
-<div id="loan-search-div">
-    <form class="form-inline">
-        <div class="row">
-            <div class="col-xs-2 form-group ">
-                <label for="inputusername" class="control-label">UserName</label>
-                <input type="text" class="form-control" id="inputusername" placeholder="inputusername" >
+    <div id="loan-search-div">
+
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="exampleInputName2">Name</label>
+                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
             </div>
 
-
-            <div class="col-xs-2">
-                <input type="text" class="form-control" placeholder=".col-xs-3">
+            <div class="form-group">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        Action <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Running</a></li>
+                        <li><a href="#">Ended</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="col-xs-2">
-                <input type="text" class="form-control" placeholder=".col-xs-4">
-            </div>
-            <div class="col-xs-1 ">
-                <input class="btn btn-default" type="submit" value="Submit">
-            </div>
-        </div>
-    </form>
-</div>
-<div id="loan-div">
-    <table class="table table-hover table-bordered">
-        <thead>
-        <tr>
-            <th>Index</th>
-            <th>BankName</th>
-            <th>LoanName</th>
-            <th>Amount</th>
-            <th>Balance</th>
-            <th>AmountRates</th>
-            <th>BalanceRates</th>
-            <th>Rate</th>
-            <th>BeginTime</th>
-            <th>EndTime</th>
-            <th>Operation</th>
-        </tr>
-        </thead>
+            <button type="submit" class="btn btn-default">Search</button>
+        </form>
 
-        <tr>
-            <th>1</th>
-            <td>UBS BANK</td>
-            <td>Xiao Mi</td>
-            <td>50000</td>
-            <td>32000</td>
-            <td>2500</td>
-            <td>2000</td>
-            <td>0.05</td>
-            <td>2020-01-20</td>
-            <td>2022-12-20</td>
-            <td>view | del</td>
-        </tr>
 
-    </table>
-</div>
+    </div>
+    <div id="loan-div">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>Index</th>
+                <th>UserName</th>
+                <th>BankName</th>
+                <th>LoanName</th>
+                <th>Amount</th>
+                <th>Balance</th>
+                <th>AmountRates</th>
+                <th>BalanceRates</th>
+                <th>Rate</th>
+                <th>BeginTime</th>
+                <th>EndTime</th>
+                <th>Operation</th>
+            </tr>
+            </thead>
+
+            <tr>
+                <th>1</th>
+                <td>Red Hoe</td>
+                <td>UBS BANK</td>
+                <td>Xiao Mi</td>
+                <td>50000</td>
+                <td>32000</td>
+                <td>2500</td>
+                <td>2000</td>
+                <td>0.05</td>
+                <td>2020-01-20</td>
+                <td>2022-12-20</td>
+                <td>view | del</td>
+            </tr>
+
+        </table>
+    </div>
 {% endblock %}

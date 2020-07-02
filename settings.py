@@ -10,6 +10,12 @@ class DeploymentConfig(Config):
     ENV = 'deployment'
 
 
+class DeploymentConfigHome(Config):
+    DEBUG = True
+    ENV = 'deployment'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:19861111@127.0.0.1:3306/test'  # 连接数据库。示例：mysql://username:password@host/post/db?charset=utf-8
+
+
 class ProductionConfig(Config):
     DEBUG = False
     ENV = 'production'
