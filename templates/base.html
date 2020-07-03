@@ -32,7 +32,7 @@
     <div>
         <div class="div_nav">
             <ul class="nav nav-pills">
-                <li role="presentation" class="active"><a href="/">Home</a></li>
+                <li role="presentation" class="active"><a href="{{ url_for('user.base') }}">Home</a></li>
 
                 {% if user %}
                     <li role="presentation"><a href="{{ url_for('loan.loan') }}">Loan</a></li>
@@ -50,9 +50,7 @@
 
         <div id="div_newcontent">
             {% block newcontent %}
-                {% if user %}
-                    <h1>Welcome,{{ user.username }}</h1>
-                {% endif %}
+
             {% endblock %}
         </div>
 

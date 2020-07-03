@@ -7,7 +7,7 @@ from apps.user.model import User
 user_bp = Blueprint('user', __name__)  # 创建蓝图
 
 # 使用白名单方式/黑名单方式
-required_login_list = ['/login', '/register']
+required_login_list = ['/base', '/loan/loan', '/loan/capital', '/loan/trend']
 
 
 # 进入路由前执行 钩子函数
@@ -15,17 +15,19 @@ required_login_list = ['/login', '/register']
 def first_request():
     print("before_app_first_request")
 
+
 # 路由拦截
 @user_bp.before_app_request
 def before_request():
     print("before_app_request", request.path)
-    if request.path not in required_login_list:
+    if request.path in required_login_list:
         uid = session.get('uid')
         if uid:
             user = User.query.get(uid)
             g.user = user
         else:
             return redirect(url_for('user.login'))
+
 
 # 路由结束 钩子 对response做特殊处理
 @user_bp.after_app_request
@@ -41,9 +43,12 @@ def teardown_app_request(response):
     print("teardown_app_request")
 
 
-@user_bp.route('/', endpoint='base')
+@user_bp.route('/base', endpoint='base')
 def base():
-    return render_template('base.html', user=g.user)
+    user = g.user
+    if user:
+        return render_template('base.html', user=user)
+    return render_template('base.html')
 
 
 @user_bp.route('/login', endpoint='login', methods=['GET', 'POST'])
@@ -70,20 +75,15 @@ def user_login():
 @user_bp.route('/register', endpoint='register', methods=['GET', 'POST'])
 def user_register():
     if request.method == 'POST':
-        print(1)
         username = request.form.get('username')
         phone = request.form.get('phone')
         password = request.form.get('password')
-        print(password)
         re_password = request.form.get('repassword')
-        print(re_password)
         if password == re_password:
-            print(2)
             user = User()
             user.username = username
             user.password = generate_password_hash(password)
             user.phone = phone
-            print(user)
             db.session.add(user)  # 将user对象添加到session缓存
             db.session.commit()
             return redirect(url_for('user.login'))

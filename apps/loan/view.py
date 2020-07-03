@@ -8,13 +8,23 @@ from apps.user.model import User
 loan_bp = Blueprint('loan', __name__, url_prefix='/loan')  # 创建蓝图
 
 
-@loan_bp.route('/loan', endpoint='loan')
+@loan_bp.route('/loan', endpoint='loan', methods=['GET', 'POST'])
 def loan_show():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        phone = request.form.get('phone')
+        password = request.form.get('password')
+        re_password = request.form.get('repassword')
     return render_template('loan/loan.html', user=g.user)
 
 
-@loan_bp.route('/capital', endpoint='capital')
+@loan_bp.route('/capital', endpoint='capital', methods=['GET', 'POST'])
 def loan_capital():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        phone = request.form.get('phone')
+        password = request.form.get('password')
+        re_password = request.form.get('repassword')
     return render_template('loan/capital.html', user=g.user)
 
 

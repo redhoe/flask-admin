@@ -49,6 +49,37 @@
 
 
     </div>
+    <div>
+                <form class="form-horizontal" action="{{ url_for('loan.loan') }}" method="post">
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-3" for="inputloanname">loanname</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputloanname" name="loanname"
+                           placeholder="loanname" aria-describedby="inputSuccess3Status">
+                </div>
+            </div>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-3" for="inputbankname">bankname</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputbankname" name="bankname"
+                           placeholder="bankname" aria-describedby="inputSuccess3Status">
+                </div>
+            </div>
+
+
+
+            <div class="form-group has-success has-feedback">
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-9" class="input-group">
+                    <button type="reset" class="btn btn-default">ReSet</button>
+                    <button type="submit" class="btn btn-default">Add Loan</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
     <div id="loan-div">
         <table class="table table-hover table-bordered">
             <thead>
