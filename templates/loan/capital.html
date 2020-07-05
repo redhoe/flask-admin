@@ -1,53 +1,198 @@
 {% extends "base.html" %}
 {% block title %}Loan{% endblock %}
+{% block scripts %}
+    {{ super() }}
+    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="{{ url_for('static',filename='js/bootstrap-select.min.js') }}"></script>
 
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            $('#expect_time').datetimepicker({
+
+                format: 'YYYY-MM-DD',
+
+                locale: moment.locale('zh-cn')
+
+            });
+
+            $('#execute_time').datetimepicker({
+
+                format: 'YYYY-MM-DD',
+
+                locale: moment.locale('zh-cn')
+
+            });
+
+        });
+
+
+    </script>
+
+
+
+{% endblock %}
 {% block styles %}
-{{super()}}
+    {{ super() }}
 
-<style>
-    #loan-div {
-        padding-top: 10px;
-        width: 60%;
-        margin: 0 auto;
-    }
+<link type="text/css" rel="styleSheet"  href="{{ url_for('static',filename='css/bootstrap-select.min.css') }}" />
+    <style>
+        #capital-div {
+            padding-top: 10px;
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        #capital-form-div {
+            padding-top: 10px;
+            width: 80%;
+            margin: 0 auto;
+
+        }
 
 
-</style>
+    </style>
 {% endblock %}
 
 {% block newcontent %}
-<div id="loan-div">
-    <table class="table table-hover table-bordered">
-        <thead>
+    <div id="capital-form-div">
+
+
+        <form class="form-horizontal" action="{{ url_for('loan.capital') }}" method='post'>
+
+
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputamount">选择款项</label>
+                <div class="col-sm-2">
+                    <select value="0" name="loan_id" class="selectpicker" data-style="btn-primary">
+                        {% for loan in loans %}
+                            <option value="{{ loan.id }}">{{ loan.user.username }}|{{ loan.loan_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputamount">总还款</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="inputamount" name="amount"
+                           placeholder="Amount" aria-describedby="inputSuccess3Status">
+                </div>
+                <label class="control-label col-sm-1" for="inputRate" style="text-align:left">CNY</label>
+            </div>
+        <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputbalance">本金</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="inputbalance" name="balance"
+                           placeholder="Balance" aria-describedby="inputSuccess3Status">
+                </div>
+                <label class="control-label col-sm-1" for="inputRate" style="text-align:left">CNY</label>
+            </div>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputrate">利息</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="inputrate" name="rate"
+                           placeholder="Rate" aria-describedby="inputSuccess3Status">
+                </div>
+                <label class="control-label col-sm-1" for="inputRate" style="text-align:left">CNY</label>
+            </div>
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputamount">状态</label>
+                <div class="col-sm-2">
+                    <select value="0" name="status" class="selectpicker" data-style="btn-primary">
+                        <option value="2">已完成</option>
+                        <option value="1">待执行</option>
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputamount">类型</label>
+                <div class="col-sm-2">
+                    <select value="0" name="side" class="selectpicker" data-style="btn-primary">
+
+                        <option value="1">还款</option>
+                        <option value="2">借出</option>
+
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-2" for="inputBeginTime">预计执行日期</label>
+                <!--指定 date标记-->
+                <div class='col-sm-2 input-group date' id='expect_time'>
+                    <input type='text' class="form-control" id="inputBeginTime" name="expect_time"
+                           aria-describedby="inputSuccess3Status"/>
+                    <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-2" for="inputEndTime">实际执行日期</label>
+                <div class='col-sm-2 input-group date' id='execute_time'>
+                    <input type='text' class="form-control" name="execute_time"/>
+                    <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar">
+
+                    </span>
+                    </span>
+                </div>
+            </div>
+
+
+            <input type="submit" value="Add Capital">
+        </form>
+
+
+    </div>
+
+
+
+    <div id="capital-div">
+        <table class="table table-hover table-bordered">
+            <thead>
             <tr>
                 <th>Index</th>
-                <th>BankName</th>
-                <th>LoanName</th>
-                <th>Amount</th>
-                <th>Balance</th>
-                <th>AmountRates</th>
-                <th>BalanceRates</th>
-                <th>Rate</th>
-                <th>BeginTime</th>
-                <th>EndTime</th>
+                <th>用户名</th>
+                <th>贷款机构</th>
+                <th>贷款项</th>
+                <th>还款额</th>
+                <th>本金</th>
+                <th>利息</th>
+                <th>状态</th>
+                <th>预计还款日期</th>
+                <th>实际还款日期</th>
                 <th>Operation</th>
             </tr>
-        </thead>
+            </thead>
+            {% for capital in capitals %}
+            <tr>
+                <th>{{ loop.index }}</th>
+                <td>{{ capital.user.username }}</td>
+                <td>{{ capital.loan.bank_name }}</td>
+                <td>{{ capital.loan.loan_name }}</td>
+                <td>{{ capital.amount }}</td>
+                <td>{{ capital.balance }}</td>
+                <td>{{ capital.rate }}</td>
+                <td>{{ capital.status }}</td>
+                <td>{{ capital.expect_time }}</td>
+                <td>{{ capital.execute_time }}</td>
+                <td>view | del</td>
+            </tr>
+            {% endfor %}
 
-        <tr>
-            <th>1</th>
-            <td>UBS BANK</td>
-            <td>Xiao Mi</td>
-            <td>50000</td>
-            <td>32000</td>
-            <td>2500</td>
-            <td>2000</td>
-            <td>0.05</td>
-            <td>2020-01-20</td>
-            <td>2022-12-20</td>
-            <td>view | del</td>
-        </tr>
-
-    </table>
-</div>
+        </table>
+    </div>
 {% endblock %}

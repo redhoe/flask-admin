@@ -33,12 +33,17 @@ class Capital(db.Model):
     __tablename__ = 'capital'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     loan_id = db.Column(db.Integer, db.ForeignKey('loan.id'), nullable=False)
-    amount = db.Column(db.String(30))  # 金额
-    side = db.Column(db.String(1))  # 方向 ‘0’: -  ‘1’：+
-    status = db.Column(db.String(1))  # ‘0’：待执行   ‘1’：已执行
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    amount = db.Column(db.String(30))  # 总还款
+    balance = db.Column(db.String(30))  # 利息
+    rate = db.Column(db.String(30))  # 本金
+    side = db.Column(db.String(1))  # 方向 ‘1’: -  ‘2’：+
+    status = db.Column(db.String(1))  # ‘1’：待执行   ‘2’：已执行
     expect_time = db.Column(db.String(50))  # 预计执行时间
     execute_time = db.Column(db.String(50))  # 实际执行时间
     create_time = db.Column(db.DateTime, default=datetime.now)
+    # 建立表联系
+    user = db.relationship('User', backref='capital')
 
     def __str__(self):
         return self.__tablename__

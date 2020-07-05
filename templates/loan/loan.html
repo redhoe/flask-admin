@@ -1,6 +1,38 @@
 {% extends "base.html" %}
 {% block title %}Loan{% endblock %}
 
+{% block scripts %}
+    {{ super() }}
+    <script src="https://cdn.bootcss.com/moment.js/2.24.0/moment-with-locales.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript">
+
+
+        $(function () {
+
+            $('#stardate').datetimepicker({
+
+                format: 'YYYY-MM-DD',
+
+                locale: moment.locale('zh-cn')
+
+            });
+
+            $('#enddate').datetimepicker({
+
+                format: 'YYYY-MM-DD',
+
+                locale: moment.locale('zh-cn')
+
+            });
+
+        });
+
+
+    </script>
+
+{% endblock %}
+
 {% block styles %}
     {{ super() }}
 
@@ -13,10 +45,18 @@
 
         }
 
+        #loan-form-div {
+            padding-top: 10px;
+            width: 80%;
+            margin: 0 auto;
+
+        }
+
         #loan-div {
             padding-top: 10px;
             width: 80%;
             margin: 0 auto;
+
         }
 
 
@@ -49,18 +89,29 @@
 
 
     </div>
-    <div>
-                <form class="form-horizontal" action="{{ url_for('loan.loan') }}" method="post">
-            <div class="form-group has-success has-feedback">
-                <label class="control-label col-sm-3" for="inputloanname">loanname</label>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="inputloanname" name="loanname"
-                           placeholder="loanname" aria-describedby="inputSuccess3Status">
+    <div id="loan-form-div">
+
+
+        <form class="form-horizontal" action="{{ url_for('loan.loan') }}" method="post">
+
+            <div class="form-group has-success has-feedback" style="margin: 0 auto;">
+                <div class="col-sm-12" >
+                    <label><h1>贷款项添加</h1></label>
                 </div>
             </div>
 
+
+            <div class="form-group has-success has-feedback" style="padding-top: 10px;">
+
+                <label class="control-label col-sm-1" for="lableusername">贷款人</label>
+                <div class="control-label col-sm-3" style="text-align:left;">
+                    <label id="lableusername" style="text-align:left;">{{ user.username }}</label>
+                </div>
+
+
+            </div>
             <div class="form-group has-success has-feedback">
-                <label class="control-label col-sm-3" for="inputbankname">bankname</label>
+                <label class="control-label col-sm-1" for="inputbankname">出借机构</label>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" id="inputbankname" name="bankname"
                            placeholder="bankname" aria-describedby="inputSuccess3Status">
@@ -68,11 +119,74 @@
             </div>
 
 
+            <div class="form-group has-success has-feedback">
+
+                <label class="control-label col-sm-1" for="inputloanname">贷款名称</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" id="inputloanname" name="loanname"
+                           placeholder="Loanname" aria-describedby="inputSuccess3Status">
+                </div>
+
+
+            </div>
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputamount">贷款总额</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="inputamount" name="amount"
+                           placeholder="Amount" aria-describedby="inputSuccess3Status">
+                </div>
+                <label class="control-label col-sm-1" for="inputamount" style="text-align:left">CNY</label>
+            </div>
+
 
             <div class="form-group has-success has-feedback">
-                <div class="col-sm-3"></div>
 
-                <div class="col-sm-9" class="input-group">
+                <label class="control-label col-sm-1" for="inputAmountRates">总利息</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="inputAmountRates" name="amountrates"
+                           placeholder="AmountRates" aria-describedby="inputSuccess3Status">
+                </div>
+                <label class="control-label col-sm-1" for="inputAmountRates" style="text-align:left">CNY</label>
+
+
+            </div>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputRate">日利率</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" id="inputRate" name="rate"
+                           placeholder="Rate" aria-describedby="inputSuccess3Status">
+                </div>
+                <label class="control-label col-sm-1" for="inputRate" style="text-align:left">%</label>
+            </div>
+
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputBeginTime">开始时间</label>
+                <!--指定 date标记-->
+                <div class='col-sm-2 input-group date' id='stardate'>
+                    <input type='text' class="form-control" id="inputBeginTime"  name="begintime" aria-describedby="inputSuccess3Status" />
+                    <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group has-success has-feedback">
+                <label class="control-label col-sm-1" for="inputEndTime">结束时间</label>
+                <div class='col-sm-2 input-group date' id='enddate'>
+                    <input type='text' class="form-control"   name="endtime"  />
+                    <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar">
+
+                    </span>
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="form-group has-success has-feedback">
+                <div class="col-sm-12" class="input-group">
                     <button type="reset" class="btn btn-default">ReSet</button>
                     <button type="submit" class="btn btn-default">Add Loan</button>
                 </div>
@@ -98,22 +212,24 @@
                 <th>Operation</th>
             </tr>
             </thead>
-
+            {% for loan in loans %}
             <tr>
-                <th>1</th>
-                <td>Red Hoe</td>
-                <td>UBS BANK</td>
-                <td>Xiao Mi</td>
-                <td>50000</td>
-                <td>32000</td>
-                <td>2500</td>
-                <td>2000</td>
-                <td>0.05</td>
-                <td>2020-01-20</td>
-                <td>2022-12-20</td>
+                <th>{{ loop.index }}</th>
+                <td>{{ loan.user.username }}</td>
+                <td>{{ loan.bank_name }}</td>
+                <td>{{ loan.loan_name }}</td>
+                <td>{{ loan.amount }}</td>
+                <td>{{ loan.balance }}</td>
+                <td>{{ loan.amount_rates }}</td>
+                <td>{{ loan.balance_rates }}</td>
+                <td>{{ loan.rate }}</td>
+                <td>{{ loan.begin_time }}</td>
+                <td>{{ loan.end_time }}</td>
                 <td>view | del</td>
             </tr>
+            {% endfor %}
 
         </table>
     </div>
 {% endblock %}
+
